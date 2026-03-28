@@ -20,6 +20,7 @@ const Work = () => {
     let padding: number =
       parseInt(window.getComputedStyle(box[0]).padding) / 2;
     translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
+    if (translateX < 0) translateX = 0;
   }
 
   setTranslateX();
@@ -53,21 +54,56 @@ const Work = () => {
           My <span>Work</span>
         </h2>
         <div className="work-flex">
-          {[...Array(6)].map((_value, index) => (
+          {[
+            {
+              name: "MERN Auth System",
+              category: "Full Stack",
+              tools: "React, Node.js, Express, MongoDB, JWT",
+              image: "/images/placeholder.webp",
+              url: "#" // <-- Add your MERN Auth project link here!
+            },
+            {
+              name: "Real-Time Video Chat",
+              category: "Frontend",
+              tools: "React, ZEGOCLOUD, JWT",
+              image: "/images/placeholder.webp",
+              url: "#" // <-- Add your Video Chat project link here!
+            }
+          ].map((project, index) => (
             <div className="work-box" key={index}>
               <div className="work-info">
                 <div className="work-title">
                   <h3>0{index + 1}</h3>
 
                   <div>
-                    <h4>Project Name</h4>
-                    <p>Category</p>
+                    <h4>{project.name}</h4>
+                    <p>{project.category}</p>
                   </div>
                 </div>
                 <h4>Tools and features</h4>
-                <p>Javascript, TypeScript, React, Threejs</p>
+                <p>{project.tools}</p>
+                
+                <a 
+                  href={project.url} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    marginTop: "20px",
+                    color: "white", 
+                    textDecoration: "underline",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    opacity: 0.8
+                  }}
+                  data-cursor="disable"
+                >
+                  View Project &#8599;
+                </a>
               </div>
-              <WorkImage image="/images/placeholder.webp" alt="" />
+              <WorkImage image={project.image} alt={project.name} />
             </div>
           ))}
         </div>

@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import "./styles/WhatIDo.css";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const WhatIDo = () => {
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -8,18 +7,21 @@ const WhatIDo = () => {
     containerRef.current[index] = el;
   };
   useEffect(() => {
-    if (ScrollTrigger.isTouch) {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.classList.remove("what-noTouch");
-          container.addEventListener("click", () => handleClick(container));
-        }
-      });
-    }
+    const containers = containerRef.current;
+    
+    const listeners = containers.map((container) => {
+      if (container) {
+        const listener = () => handleClick(container);
+        container.addEventListener("click", listener);
+        return { container, listener };
+      }
+      return null;
+    });
+
     return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
+      listeners.forEach((item) => {
+        if (item) {
+          item.container.removeEventListener("click", item.listener);
         }
       });
     };
@@ -87,24 +89,21 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>DEVELOP</h3>
+              <h3>Frontend Development</h3>
               <h4>Description</h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                quia aliquid laboriosam ducimus sit molestiae.
+                Building modern, fast, and responsive web interfaces using React and modern JavaScript. Focused on clean UI, performance, and great user experience.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skills & Tools</h5>
               <div className="what-content-flex">
+                <div className="what-tags">HTML</div>
+                <div className="what-tags">CSS</div>
                 <div className="what-tags">JavaScript</div>
                 <div className="what-tags">TypeScript</div>
-                <div className="what-tags">Three.js</div>
                 <div className="what-tags">React</div>
-                <div className="what-tags">Css</div>
-                <div className="what-tags">Node.js</div>
                 <div className="what-tags">Next.js</div>
-                <div className="what-tags">Express.js</div>
-                <div className="what-tags">PHP</div>
-                <div className="what-tags">MySql</div>
+                <div className="what-tags">Tailwind CSS</div>
+                <div className="what-tags">Git & GitHub</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -128,22 +127,21 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>DESIGN</h3>
+              <h3>Backend & AI Integration</h3>
               <h4>Description</h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                quia aliquid laboriosam ducimus sit molestiae
+                Developing scalable backend systems and APIs using Node.js and Express. Integrating AI tools and automation to build smarter web applications.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skills & Tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Blender</div>
-                <div className="what-tags">Zbrush</div>
-                <div className="what-tags">UI Design</div>
-                <div className="what-tags">Motion</div>
-                <div className="what-tags">Rigging</div>
-                <div className="what-tags">3D Animation</div>
-                <div className="what-tags">Character Design</div>
-                <div className="what-tags">Modelling</div>
+                <div className="what-tags">Node.js</div>
+                <div className="what-tags">Express.js</div>
+                <div className="what-tags">MongoDB</div>
+                <div className="what-tags">REST APIs</div>
+                <div className="what-tags">Authentication</div>
+                <div className="what-tags">AI APIs</div>
+                <div className="what-tags">Automation (n8n)</div>
+                <div className="what-tags">Deployment</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -157,15 +155,22 @@ const WhatIDo = () => {
 export default WhatIDo;
 
 function handleClick(container: HTMLDivElement) {
+  const isActivating = !container.classList.contains("what-content-active");
+  
   container.classList.toggle("what-content-active");
   container.classList.remove("what-sibling");
+  
   if (container.parentElement) {
-    const siblings = Array.from(container.parentElement.children);
+    const children = Array.from(container.parentElement.children);
 
-    siblings.forEach((sibling) => {
-      if (sibling !== container) {
-        sibling.classList.remove("what-content-active");
-        sibling.classList.toggle("what-sibling");
+    children.forEach((child) => {
+      if (child !== container && child.classList.contains("what-content")) {
+        child.classList.remove("what-content-active");
+        if (isActivating) {
+          child.classList.add("what-sibling");
+        } else {
+          child.classList.remove("what-sibling");
+        }
       }
     });
   }

@@ -15,43 +15,37 @@ const Career = () => {
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Position In Company</h4>
-                <h5>Company Name</h5>
+                <h4>Full Stack Developer</h4>
+                <h5>CodeXnam-(Freelance)</h5>
               </div>
-              <h3>20XX</h3>
+              <h3>JAN 2026 - FEB 2026</h3>
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-              labore sit non ipsum temporibus quidem, deserunt eaque officiis
-              mollitia ratione suscipit repellat.
+              Developed robust, scalable web applications with React and Node.js. Built efficient backend APIs, integrated real-time functionalities, and implemented responsive UI layouts with Tailwind CSS.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Position In Company</h4>
-                <h5>Company Name</h5>
+                <h4>Bachelor of Computer Application</h4>
+                <h5>IGNOU</h5>
               </div>
-              <h3>20XX</h3>
+              <h3>2023 - 2026</h3>
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-              labore sit non ipsum temporibus quidem, deserunt eaque officiis
-              mollitia ratione suscipit repellat.
+              Pursuing my BCA from Indira Gandhi National Open University (IGNOU), building a strong foundation in computer science and software development.
             </p>
           </div>
           <div className="career-info-box">
             <div className="career-info-in">
               <div className="career-role">
-                <h4>Position In Company</h4>
-                <h5>Company Name</h5>
+                <h4>‘O’ Level & ‘A’ Level</h4>
+                <h5>NIELIT</h5>
               </div>
-              <h3>NOW</h3>
+              <h3>2023 - 2025</h3>
             </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-              labore sit non ipsum temporibus quidem, deserunt eaque officiis
-              mollitia ratione suscipit repellat.
+              Completed comprehensive certification courses covering various aspects of IT and software technology.
             </p>
           </div>
         </div>
