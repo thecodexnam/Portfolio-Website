@@ -54,6 +54,7 @@ function splitIntoWords(root: HTMLElement) {
     const span = document.createElement("span");
     span.className = "word";
     span.style.display = "inline-block";
+    span.style.whiteSpace = "pre";
     span.textContent = word + space;
     root.appendChild(span);
     wordSpans.push(span);
@@ -104,4 +105,3 @@ export function splitText(
 }
 
 export type { SplitResult };
-

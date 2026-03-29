@@ -317,34 +317,44 @@
 @media only screen and (max-width: 900px) {
   .whatIDO {
     flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-bottom: 20px;
   }
   .what-box h2 {
-    margin: 50px 0;
-    font-size: 55px;
-    line-height: 53px;
+    margin: 30px 0 10px;
+    font-size: clamp(40px, 10vw, 55px);
+    line-height: 0.95;
   }
   .what-box:first-child {
     justify-content: left;
   }
   .what-box:last-child {
-    height: 600px;
+    height: auto;
   }
   .what-box {
-    width: 500px;
-    max-width: calc(100% - 50px);
+    width: 100%;
+    max-width: calc(100% - 30px);
     margin: auto;
+  }
+  .what-box-in {
+    width: 100%;
+    margin-left: 0px;
+    height: auto;
+    min-height: 0;
+    gap: 16px;
   }
   .what-content {
     width: 100%;
-  }
-  .what-box-in {
-    margin-left: 0px;
-    height: 550px;
+    min-height: 0;
+    height: auto;
+    padding: 24px;
   }
   .what-content h5,
   .what-content-flex {
-    opacity: 0;
-    transition: 0.3s;
+    opacity: 1;
+    transition: none;
   }
   .what-noTouch:hover h5,
   .what-content-active h5,
@@ -352,15 +362,15 @@
   .what-content-active .what-content-flex {
     opacity: 1;
   }
-  .what-content {
-    padding: 30px;
-  }
   .what-content p {
-    font-size: 11px;
+    font-size: 13px;
+    line-height: 1.5;
   }
   .what-noTouch:hover,
   .what-content-active {
-    padding: 10px 30px;
+    min-height: 0;
+    height: auto;
+    padding: 24px;
   }
   .what-tags {
     font-size: 11px;
@@ -369,10 +379,19 @@
   .what-noTouch:hover ~ .what-content,
   .what-box-in:hover .what-noTouch:not(:hover),
   .what-content.what-sibling {
-    padding: 5px 30px;
+    min-height: 0;
+    height: auto;
+    padding: 24px;
   }
   .what-content h3 {
-    font-size: 25px;
+    font-size: 24px;
+  }
+  .what-content-in {
+    height: auto;
+    overflow: visible;
+  }
+  .what-border2 svg {
+    height: 100%;
   }
 }
 @media only screen and (max-width: 550px) {
@@ -384,6 +403,22 @@
   .what-box {
     max-width: calc(100% - 25px);
     margin: 0;
+  }
+  .what-content {
+    padding: 20px;
+  }
+  .what-noTouch:hover,
+  .what-content-active,
+  .what-noTouch:hover ~ .what-content,
+  .what-box-in:hover .what-noTouch:not(:hover),
+  .what-content.what-sibling {
+    padding: 20px;
+  }
+  .what-content h3 {
+    font-size: 21px;
+  }
+  .what-content p {
+    font-size: 12px;
   }
 }
 @media only screen and (min-width: 1950px) {
