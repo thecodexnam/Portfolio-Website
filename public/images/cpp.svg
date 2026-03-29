@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0f1622"/>
+  <polygon points="256,76 391,154 391,308 256,386 121,308 121,154" fill="#00599c"/>
+  <polygon points="256,116 356,174 356,288 256,346 156,288 156,174" fill="#004482"/>
+  <text x="232" y="273" text-anchor="middle" font-family="Arial, sans-serif" font-size="90" font-weight="700" fill="#ffffff">C</text>
+  <text x="314" y="232" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#ffffff">+</text>
+  <text x="314" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#ffffff">+</text>
+  <text x="256" y="452" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#eaf4ff">C++</text>
+</svg>

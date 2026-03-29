@@ -21,8 +21,77 @@ const imageUrls = [
   "/images/mysql.webp",
   "/images/typescript.webp",
   "/images/javascript.webp",
+  "/images/docker.svg",
+  "/images/aws.svg",
+  "/images/redux.svg",
+  "/images/python.svg",
+  "/images/cpp.svg",
+  "/images/tailwind.svg",
 ];
-const textures = imageUrls.map((url) => textureLoader.load(url));
+
+function createThemeTexture(image: CanvasImageSource) {
+  const size = 1024;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+
+  const gradient = context.createLinearGradient(0, 0, size, size);
+  gradient.addColorStop(0, "#08111f");
+  gradient.addColorStop(1, "#0f1f39");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, size, size);
+
+  context.save();
+  context.translate(size / 2, size / 2);
+
+  context.beginPath();
+  context.arc(0, 0, 360, 0, Math.PI * 2);
+  context.closePath();
+  context.fillStyle = "#0b1729";
+  context.shadowColor = "rgba(82, 227, 255, 0.45)";
+  context.shadowBlur = 70;
+  context.fill();
+  context.restore();
+
+  context.save();
+  context.translate(size / 2, size / 2);
+  context.beginPath();
+  context.arc(0, 0, 350, 0, Math.PI * 2);
+  context.closePath();
+  context.clip();
+
+  const width = "width" in image ? image.width : 512;
+  const height = "height" in image ? image.height : 512;
+  const scale = Math.min(420 / width, 420 / height);
+  const drawWidth = width * scale;
+  const drawHeight = height * scale;
+  context.drawImage(image, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
+  context.restore();
+
+  context.save();
+  context.translate(size / 2, size / 2);
+  context.beginPath();
+  context.arc(0, 0, 360, 0, Math.PI * 2);
+  context.closePath();
+  context.lineWidth = 18;
+  context.strokeStyle = "rgba(126, 245, 255, 0.9)";
+  context.stroke();
+  context.beginPath();
+  context.arc(0, 0, 320, 0, Math.PI * 2);
+  context.closePath();
+  context.lineWidth = 3;
+  context.strokeStyle = "rgba(255, 255, 255, 0.18)";
+  context.stroke();
+  context.restore();
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
@@ -152,18 +221,26 @@ const TechStack = () => {
     };
   }, []);
   const materials = useMemo(() => {
-    return textures.map(
-      (texture) =>
-        new THREE.MeshPhysicalMaterial({
-          map: texture,
-          emissive: "#ffffff",
-          emissiveMap: texture,
-          emissiveIntensity: 0.3,
-          metalness: 0.5,
-          roughness: 1,
-          clearcoat: 0.1,
-        })
-    );
+    return imageUrls.map((url) => {
+      const material = new THREE.MeshPhysicalMaterial({
+        emissive: "#86ecff",
+        emissiveIntensity: 0.22,
+        metalness: 0.35,
+        roughness: 0.82,
+        clearcoat: 0.18,
+      });
+
+      textureLoader.load(url, (loadedTexture) => {
+        const themedTexture = createThemeTexture(loadedTexture.image);
+        if (!themedTexture) return;
+
+        material.map = themedTexture;
+        material.emissiveMap = themedTexture;
+        material.needsUpdate = true;
+      });
+
+      return material;
+    });
   }, []);
 
   return (
