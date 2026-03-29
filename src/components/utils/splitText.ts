@@ -1,18 +1,24 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
-import { SplitText } from "gsap-trial/SplitText";
+import { splitText, type SplitResult } from "./textSplit";
 
 interface ParaElement extends HTMLElement {
   anim?: gsap.core.Animation;
-  split?: SplitText;
+  split?: SplitResult;
 }
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
+gsap.registerPlugin(ScrollTrigger);
+
+let scrollRefreshListenerRegistered = false;
 
 export default function setSplitText() {
   ScrollTrigger.config({ ignoreMobileResize: true });
   if (window.innerWidth < 900) return;
+
+  if (!scrollRefreshListenerRegistered) {
+    scrollRefreshListenerRegistered = true;
+    ScrollTrigger.addEventListener("refresh", () => setSplitText());
+  }
   const paras: NodeListOf<ParaElement> = document.querySelectorAll(".para");
   const titles: NodeListOf<ParaElement> = document.querySelectorAll(".title");
 
@@ -26,8 +32,9 @@ export default function setSplitText() {
       para.split?.revert();
     }
 
-    para.split = new SplitText(para, {
-      type: "lines,words",
+    para.split = splitText(para, {
+      words: true,
+      lines: true,
       linesClass: "split-line",
     });
 
@@ -53,8 +60,9 @@ export default function setSplitText() {
       title.anim.progress(1).kill();
       title.split?.revert();
     }
-    title.split = new SplitText(title, {
-      type: "chars,lines",
+    title.split = splitText(title, {
+      chars: true,
+      lines: true,
       linesClass: "split-line",
     });
     title.anim = gsap.fromTo(
@@ -75,6 +83,4 @@ export default function setSplitText() {
       }
     );
   });
-
-  ScrollTrigger.addEventListener("refresh", () => setSplitText());
 }
